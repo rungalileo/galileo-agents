@@ -71,6 +71,80 @@ Traceloop.init(
 
 Traceloop automatically instruments LangGraph workflows and CrewAI crews, generating spans for agents, tools, LLM calls, and retrievers.
 
+## Instrumentation Recommendations
+
+Galileo's OTLP provider conforms to [OpenTelemetry](https://opentelemetry.io/) and [OpenInference](https://github.com/Arize-ai/openinference) semantic conventions. To ensure your spans are valid and properly processed, follow these guidelines.
+
+### Semantic Conventions
+
+1. **OpenTelemetry GenAI Agent Spans**: [Semantic Conventions for GenAI agent and framework spans](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-agent-spans/)
+2. **OpenInference**: [OpenInference Semantic Conventions](https://github.com/Arize-ai/openinference/blob/main/python/openinference-semantic-conventions/src/openinference/semconv/trace/__init__.py)
+
+### Minimum Requirements for Valid Spans
+
+For a span to be considered valid, it must include the following **required** attributes:
+
+#### For Agent Spans
+
+| Attribute | Requirement Level | Description | Example |
+|-----------|------------------|-------------|---------|
+| `gen_ai.operation.name` | **Required** | The name of the operation being performed | `invoke_agent`, `create_agent` |
+| `gen_ai.provider.name` | **Required** | The Generative AI provider | `openai`, `anthropic`, `gcp.vertex_ai` |
+| Span name | **Required** | Should follow format: `invoke_agent {gen_ai.agent.name}` or `invoke_agent` | `invoke_agent Math Tutor` |
+| Span kind | **Required** | Should be `CLIENT` for remote agents or `INTERNAL` for in-process agents | `CLIENT`, `INTERNAL` |
+| **Input** | **Required** | Input messages or data. Use `gen_ai.input.messages` (OpenTelemetry) or `input.value` (OpenInference) | `[{"role": "user", "content": "..."}]` |
+| **Output** | **Required** | Output messages or data. Use `gen_ai.output.messages` (OpenTelemetry) or `output.value` (OpenInference) | `[{"role": "assistant", "content": "..."}]` |
+
+#### For LLM Spans
+
+| Attribute | Requirement Level | Description | Example |
+|-----------|------------------|-------------|---------|
+| `gen_ai.operation.name` | **Required** | The name of the operation | `chat`, `text_completion`, `embeddings` |
+| `gen_ai.provider.name` | **Required** | The Generative AI provider | `openai`, `anthropic` |
+| `gen_ai.request.model` | Conditionally Required | The name of the GenAI model | `gpt-4`, `claude-3-opus` |
+| **Input** | **Required** | Input messages or prompts. Use `gen_ai.input.messages` (OpenTelemetry) or `llm.input_messages` (OpenInference) | `[{"role": "user", "content": "..."}]` |
+| **Output** | **Required** | Output messages or completions. Use `gen_ai.output.messages` (OpenTelemetry) or `llm.output_messages` (OpenInference) | `[{"role": "assistant", "content": "..."}]` |
+
+#### For Tool Execution Spans
+
+| Attribute | Requirement Level | Description | Example |
+|-----------|------------------|-------------|---------|
+| `gen_ai.operation.name` | **Required** | Should be `execute_tool` | `execute_tool` |
+| `tool.name` (OpenInference) | **Required** | Name of the tool being used | `get_weather`, `calculate` |
+| **Input** | **Required** | Tool call arguments. Use `gen_ai.tool.call.arguments` (OpenTelemetry) or `input.value` (OpenInference) | `{"location": "NYC", "unit": "fahrenheit"}` |
+| **Output** | **Required** | Tool call result. Use `gen_ai.tool.call.result` (OpenTelemetry) or `output.value` (OpenInference) | `{"temperature": 72, "condition": "sunny"}` |
+
+#### For Retriever Spans
+
+| Attribute | Requirement Level | Description | Example |
+|-----------|------------------|-------------|---------|
+| `db.operation` | **Required** | Database operation type. Should be `query` or `search` | `query`, `search` |
+| `openinference.span.kind` (OpenInference) | Conditionally Required | Should be `retriever` when using OpenInference | `retriever` |
+| **Input** | **Required** | Query string or search input. Use `gen_ai.input.messages` (OpenTelemetry) or `input.value` (OpenInference) | `"What is machine learning?"` |
+| **Output** | **Required** | Retrieved documents. Use `gen_ai.output.messages` with document list (OpenTelemetry) or `retrieval.documents` (OpenInference) | `[{"id": "doc1", "content": "..."}, {"id": "doc2", "content": "..."}]` |
+
+**Note**: Retriever spans are typically detected automatically when `db.operation` is set to `query` or `search`. The output should be a list of documents, which will be formatted appropriately by Galileo's OTLP provider.
+
+### Framework-Specific Guidelines
+
+**Important**: Each framework may have its own instrumentation guidelines and conventions. Always refer to the framework-specific documentation.
+
+When using automatic instrumentation libraries (like Traceloop/OpenLLMetry), they typically handle these requirements automatically. However, when creating custom spans, ensure you follow both the OpenTelemetry GenAI conventions and any framework-specific guidelines.
+
+For implementation details on how Galileo processes input/output, refer to the [OTLP provider source code](https://github.com/galileo/api/tree/main/api/services/otel_v2).
+
+### Error Handling
+
+For spans that end in an error, you **must** include:
+
+- `error.type`: Describes the class of error (e.g., `timeout`, `500`, exception name)
+- Span status: Should be set to `ERROR` with appropriate error description
+
+### Additional Resources
+
+- [OpenTelemetry GenAI Semantic Conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-agent-spans/)
+- [OpenInference Semantic Conventions](https://github.com/Arize-ai/openinference/blob/main/python/openinference-semantic-conventions/src/openinference/semconv)
+
 ## Direct POST Calls to Galileo OTLP Endpoint
 
 You can make direct POST calls to the Galileo OTLP endpoint to send OTLP packets. This is useful for custom integrations or when you need to send pre-generated OTLP data.
