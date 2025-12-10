@@ -89,8 +89,12 @@ The following headers are required:
 |--------|-------------|
 | `Galileo-API-Key` | Your Galileo API key |
 | `project` | Project name |
+| `projectid` | Project ID |
 | `logstream` | Logstream name |
+| `logstreamid` | Logstream ID |
 | `Content-Type` | Must be `application/x-protobuf` |
+
+You can pass either `project` or `projectid` and `logstream` or `logstreamid`.
 
 ### Request Body
 
