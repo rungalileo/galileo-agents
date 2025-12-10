@@ -1,0 +1,153 @@
+{
+  "resourceSpans": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "telemetry.sdk.language",
+            "value": {
+              "stringValue": "python"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "opentelemetry"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "1.39.0"
+            }
+          },
+          {
+            "key": "galileo.project.name",
+            "value": {
+              "stringValue": "galileo-agents"
+            }
+          },
+          {
+            "key": "galileo.logstream.name",
+            "value": {
+              "stringValue": "weather-agent"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "weather-agent"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "opentelemetry.instrumentation.langchain",
+            "version": "0.49.6"
+          },
+          "spans": [
+            {
+              "traceId": "6+4O2omYWb+acBdFJHM/xA==",
+              "spanId": "TID8aFUuJrE=",
+              "parentSpanId": "gX/TtG8X/mw=",
+              "name": "weather_tool.tool",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765384152700496000",
+              "endTimeUnixNano": "1765384152701010000",
+              "attributes": [
+                {
+                  "key": "traceloop.association.properties.langgraph_step",
+                  "value": {
+                    "intValue": "2"
+                  }
+                },
+                {
+                  "key": "traceloop.association.properties.langgraph_node",
+                  "value": {
+                    "stringValue": "tools"
+                  }
+                },
+                {
+                  "key": "traceloop.association.properties.langgraph_triggers",
+                  "value": {
+                    "arrayValue": {
+                      "values": [
+                        {
+                          "stringValue": "__pregel_push"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "key": "traceloop.association.properties.langgraph_path",
+                  "value": {
+                    "arrayValue": {
+                      "values": [
+                        {
+                          "stringValue": "__pregel_push"
+                        },
+                        {
+                          "stringValue": "0"
+                        },
+                        {
+                          "stringValue": "False"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "key": "traceloop.association.properties.langgraph_checkpoint_ns",
+                  "value": {
+                    "stringValue": "tools:87477404-1046-37d2-1075-fe62505fe994"
+                  }
+                },
+                {
+                  "key": "traceloop.workflow.name",
+                  "value": {
+                    "stringValue": "LangGraph"
+                  }
+                },
+                {
+                  "key": "traceloop.entity.path",
+                  "value": {
+                    "stringValue": "tools"
+                  }
+                },
+                {
+                  "key": "traceloop.span.kind",
+                  "value": {
+                    "stringValue": "tool"
+                  }
+                },
+                {
+                  "key": "traceloop.entity.name",
+                  "value": {
+                    "stringValue": "weather_tool"
+                  }
+                },
+                {
+                  "key": "traceloop.entity.input",
+                  "value": {
+                    "stringValue": "{\"input_str\": \"{'city': 'San Francisco'}\", \"tags\": [\"seq:step:1\"], \"metadata\": {\"langgraph_step\": 2, \"langgraph_node\": \"tools\", \"langgraph_triggers\": [\"__pregel_push\"], \"langgraph_path\": [\"__pregel_push\", 0, false], \"langgraph_checkpoint_ns\": \"tools:87477404-1046-37d2-1075-fe62505fe994\", \"checkpoint_ns\": \"tools:87477404-1046-37d2-1075-fe62505fe994\"}, \"inputs\": {\"city\": \"San Francisco\"}, \"kwargs\": {\"color\": \"green\", \"name\": null}}"
+                  }
+                },
+                {
+                  "key": "traceloop.entity.output",
+                  "value": {
+                    "stringValue": "{\"output\": {\"lc\": 1, \"type\": \"constructor\", \"id\": [\"langchain\", \"schema\", \"messages\", \"ToolMessage\"], \"kwargs\": {\"content\": \"Weather in San Francisco: 77F, cloudy, 50% humidity\", \"type\": \"tool\", \"name\": \"weather_tool\", \"tool_call_id\": \"call_BHJbbX825ZEfUvjrkuLnFTQA\", \"status\": \"success\"}}, \"kwargs\": {\"tags\": [\"seq:step:1\"], \"color\": \"green\", \"name\": \"weather_tool\"}}"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 256
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

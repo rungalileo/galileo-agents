@@ -1,0 +1,150 @@
+{
+  "resourceSpans": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "telemetry.sdk.language",
+            "value": {
+              "stringValue": "python"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "opentelemetry"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "1.39.0"
+            }
+          },
+          {
+            "key": "galileo.project.name",
+            "value": {
+              "stringValue": "galileo-agents"
+            }
+          },
+          {
+            "key": "galileo.logstream.name",
+            "value": {
+              "stringValue": "weather-agent"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "weather-agent"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "opentelemetry.instrumentation.langchain",
+            "version": "0.49.6"
+          },
+          "spans": [
+            {
+              "traceId": "6+4O2omYWb+acBdFJHM/xA==",
+              "spanId": "fKmXeAl8moE=",
+              "parentSpanId": "MNVsuQgRkpY=",
+              "name": "model.task",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765384152710613000",
+              "endTimeUnixNano": "1765384153927377000",
+              "attributes": [
+                {
+                  "key": "traceloop.workflow.name",
+                  "value": {
+                    "stringValue": "LangGraph"
+                  }
+                },
+                {
+                  "key": "traceloop.entity.path",
+                  "value": {
+                    "stringValue": ""
+                  }
+                },
+                {
+                  "key": "traceloop.association.properties.langgraph_step",
+                  "value": {
+                    "intValue": "3"
+                  }
+                },
+                {
+                  "key": "traceloop.association.properties.langgraph_node",
+                  "value": {
+                    "stringValue": "model"
+                  }
+                },
+                {
+                  "key": "traceloop.association.properties.langgraph_triggers",
+                  "value": {
+                    "arrayValue": {
+                      "values": [
+                        {
+                          "stringValue": "branch:to:model"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "key": "traceloop.association.properties.langgraph_path",
+                  "value": {
+                    "arrayValue": {
+                      "values": [
+                        {
+                          "stringValue": "__pregel_pull"
+                        },
+                        {
+                          "stringValue": "model"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "key": "traceloop.association.properties.langgraph_checkpoint_ns",
+                  "value": {
+                    "stringValue": "model:6efc38de-46cd-6486-f0b2-afb12fd04022"
+                  }
+                },
+                {
+                  "key": "traceloop.span.kind",
+                  "value": {
+                    "stringValue": "task"
+                  }
+                },
+                {
+                  "key": "traceloop.entity.name",
+                  "value": {
+                    "stringValue": "model"
+                  }
+                },
+                {
+                  "key": "traceloop.entity.input",
+                  "value": {
+                    "stringValue": "{\"inputs\": {\"messages\": [{\"lc\": 1, \"type\": \"constructor\", \"id\": [\"langchain\", \"schema\", \"messages\", \"HumanMessage\"], \"kwargs\": {\"content\": \"What's the weather like in San Francisco?\", \"type\": \"human\", \"id\": \"b58da261-d126-446e-b9c7-83f8725979e2\"}}, {\"lc\": 1, \"type\": \"constructor\", \"id\": [\"langchain\", \"schema\", \"messages\", \"AIMessage\"], \"kwargs\": {\"content\": \"\", \"additional_kwargs\": {\"refusal\": null}, \"response_metadata\": {\"token_usage\": {\"completion_tokens\": 15, \"prompt_tokens\": 129, \"total_tokens\": 144, \"completion_tokens_details\": {\"accepted_prediction_tokens\": 0, \"audio_tokens\": 0, \"reasoning_tokens\": 0, \"rejected_prediction_tokens\": 0}, \"prompt_tokens_details\": {\"audio_tokens\": 0, \"cached_tokens\": 0}}, \"model_provider\": \"openai\", \"model_name\": \"gpt-4o-mini-2024-07-18\", \"system_fingerprint\": \"fp_aa07c96156\", \"id\": \"chatcmpl-ClHLrLOCoI6jP5iIIqBD4HiAeaY5w\", \"service_tier\": \"default\", \"finish_reason\": \"tool_calls\", \"logprobs\": null}, \"type\": \"ai\", \"id\": \"lc_run--019b0918-60ec-76e2-bf2a-3f6291de1cd0-0\", \"tool_calls\": [{\"name\": \"weather_tool\", \"args\": {\"city\": \"San Francisco\"}, \"id\": \"call_BHJbbX825ZEfUvjrkuLnFTQA\", \"type\": \"tool_call\"}], \"usage_metadata\": {\"input_tokens\": 129, \"output_tokens\": 15, \"total_tokens\": 144, \"input_token_details\": {\"audio\": 0, \"cache_read\": 0}, \"output_token_details\": {\"audio\": 0, \"reasoning\": 0}}, \"invalid_tool_calls\": []}}, {\"lc\": 1, \"type\": \"constructor\", \"id\": [\"langchain\", \"schema\", \"messages\", \"ToolMessage\"], \"kwargs\": {\"content\": \"Weather in San Francisco: 77F, cloudy, 50% humidity\", \"type\": \"tool\", \"name\": \"weather_tool\", \"id\": \"9b5c1ce2-1a9a-4667-8797-c42fa82a0b16\", \"tool_call_id\": \"call_BHJbbX825ZEfUvjrkuLnFTQA\", \"status\": \"success\"}}]}, \"tags\": [\"graph:step:3\"], \"metadata\": {\"langgraph_step\": 3, \"langgraph_node\": \"model\", \"langgraph_triggers\": [\"branch:to:model\"], \"langgraph_path\": [\"__pregel_pull\", \"model\"], \"langgraph_checkpoint_ns\": \"model:6efc38de-46cd-6486-f0b2-afb12fd04022\"}, \"kwargs\": {\"name\": \"model\"}}"
+                  }
+                },
+                {
+                  "key": "traceloop.entity.output",
+                  "value": {
+                    "stringValue": "{\"outputs\": {\"messages\": [{\"lc\": 1, \"type\": \"constructor\", \"id\": [\"langchain\", \"schema\", \"messages\", \"AIMessage\"], \"kwargs\": {\"content\": \"The current weather in San Francisco is 77\\u00b0F with cloudy conditions and 50% humidity.\", \"additional_kwargs\": {\"refusal\": null}, \"response_metadata\": {\"token_usage\": {\"completion_tokens\": 20, \"prompt_tokens\": 167, \"total_tokens\": 187, \"completion_tokens_details\": {\"accepted_prediction_tokens\": 0, \"audio_tokens\": 0, \"reasoning_tokens\": 0, \"rejected_prediction_tokens\": 0}, \"prompt_tokens_details\": {\"audio_tokens\": 0, \"cached_tokens\": 0}}, \"model_provider\": \"openai\", \"model_name\": \"gpt-4o-mini-2024-07-18\", \"system_fingerprint\": \"fp_aa07c96156\", \"id\": \"chatcmpl-ClHLtONPi2XN7E5RN3GALjKXjhaii\", \"service_tier\": \"default\", \"finish_reason\": \"stop\", \"logprobs\": null}, \"type\": \"ai\", \"id\": \"lc_run--019b0918-6688-7473-b824-193e0c835300-0\", \"usage_metadata\": {\"input_tokens\": 167, \"output_tokens\": 20, \"total_tokens\": 187, \"input_token_details\": {\"audio\": 0, \"cache_read\": 0}, \"output_token_details\": {\"audio\": 0, \"reasoning\": 0}}, \"tool_calls\": [], \"invalid_tool_calls\": []}}]}, \"kwargs\": {\"tags\": [\"graph:step:3\"]}}"
+                  }
+                }
+              ],
+              "status": {},
+              "flags": 256
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
