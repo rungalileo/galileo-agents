@@ -47,7 +47,7 @@ uv run agents-langgraph/weather/agent.py "What's the forecast for NYC?"
 | Variable | Description |
 |----------|-------------|
 | `GALILEO_API_KEY` | Galileo API key |
-| `TRACELOOP_BASE_URL` | Traceloop endpoint (default: https://api.galileo.ai/otel) |
+| `TRACELOOP_BASE_URL` | Traceloop endpoint (default: <https://api.galileo.ai/otel>) |
 | `TRACELOOP_HEADERS` | Traceloop headers: `Galileo-API-Key=${GALILEO_API_KEY}` |
 | `OPENAI_API_KEY` | OpenAI API key |
 
@@ -96,37 +96,12 @@ The following headers are required:
 
 The request body should contain OTLP packets in protobuf format (binary). The payload should be an `ExportTraceServiceRequest` message as defined in the OpenTelemetry Protocol specification.
 
-### Example using cURL
-
-```bash
-curl -X POST https://api.galileo.ai/otel/v1/traces \
-  -H "Galileo-API-Key: your-api-key" \
-  -H "project: your-project-name" \
-  -H "logstream: your-logstream-name" \
-  -H "Content-Type: application/x-protobuf" \
-  --data-binary @otlp_packet.pb
-```
-
 ### Example using Python
 
-```python
-import requests
+See [shared/proto.py](shared/proto.py) for an example. You can run it with:
 
-url = "https://api.galileo.ai/otel/v1/traces"
-headers = {
-    "Galileo-API-Key": "your-api-key",
-    "project": "your-project-name",
-    "logstream": "your-logstream-name",
-    "Content-Type": "application/x-protobuf",
-}
-
-# Read OTLP protobuf data from file
-with open("otlp_packet.pb", "rb") as f:
-    payload = f.read()
-
-response = requests.post(url, headers=headers, data=payload)
-print(f"Status: {response.status_code}")
-print(f"Response: {response.text}")
+```bash
+uv run shared/proto.py
 ```
 
 ### HTTP Responses
@@ -136,12 +111,16 @@ The OTLP endpoint returns the following HTTP status codes:
 #### Success Responses
 
 **200 OK**
+
 - The request was successfully processed. The response body contains an `ExportTraceServiceResponse` in JSON format.
 - Example response:
+
   ```json
   {}
   ```
+
 - If some spans were rejected, the response includes partial success information:
+
   ```json
   {
     "partialSuccess": {
@@ -154,14 +133,18 @@ The OTLP endpoint returns the following HTTP status codes:
 #### Error Responses
 
 **401 Unauthorized**
+
 - The API key is missing or invalid.
 - Response body:
+
   ```json
   {
     "detail": "API Key is missing"
   }
   ```
+
   or
+
   ```json
   {
     "detail": "Invalid API Key"
@@ -169,8 +152,10 @@ The OTLP endpoint returns the following HTTP status codes:
   ```
 
 **404 Not Found**
+
 - The specified project was not found and could not be created.
 - Response body:
+
   ```json
   {
     "detail": "Project not found."
@@ -178,8 +163,10 @@ The OTLP endpoint returns the following HTTP status codes:
   ```
 
 **415 Unsupported Media Type**
+
 - The `Content-Type` header is not `application/x-protobuf`.
 - Response body:
+
   ```json
   {
     "detail": "<content-type> is not supported, content_type needs to be: 'application/x-protobuf'"
@@ -187,21 +174,25 @@ The OTLP endpoint returns the following HTTP status codes:
   ```
 
 **422 Unprocessable Entity**
+
 - The request could not be processed. Common reasons:
   - No spans found in the request
   - Trace processing failed
   - Log stream ID is required but not provided
 - Response body examples:
+
   ```json
   {
     "detail": "No spans found in request."
   }
   ```
+
   ```json
   {
     "detail": "log_stream_id is required."
   }
   ```
+
   ```json
   {
     "detail": "Trace processing failed: <error message>"
@@ -211,6 +202,7 @@ The OTLP endpoint returns the following HTTP status codes:
 ### Response Format
 
 All responses are returned as JSON. Success responses follow the OpenTelemetry Protocol `ExportTraceServiceResponse` format, which may include:
+
 - `partialSuccess.rejectedSpans`: Number of spans that were rejected
 - `partialSuccess.errorMessage`: Error messages describing why spans were rejected
 

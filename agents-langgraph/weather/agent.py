@@ -1,4 +1,5 @@
 """Weather Agent - Answers weather questions using tools."""
+
 import os
 import sys
 
@@ -8,20 +9,16 @@ from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
 from opentelemetry import trace
 from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
+from prompt import WEATHER_AGENT_SYSTEM_PROMPT
+from tools import get_current_weather, get_forecast
 from traceloop.sdk import Traceloop
 
-from prompt import WEATHER_AGENT_SYSTEM_PROMPT
 from shared import logger
-from tools import get_current_weather, get_forecast
 
 load_dotenv()
 
 Traceloop.init(
     app_name="weather-agent",
-    resource_attributes={
-        "galileo.project.name": "galileo-agents",
-        "galileo.logstream.name": "weather-agent",
-    },
     disable_batch=True,
 )
 
