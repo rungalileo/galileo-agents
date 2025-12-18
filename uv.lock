@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.10"
 resolution-markers = [
     "python_full_version >= '3.13'",
@@ -1061,6 +1061,7 @@ dependencies = [
     { name = "galileo", extra = ["otel"] },
     { name = "python-dotenv" },
     { name = "traceloop-sdk" },
+    { name = "truststore" },
 ]
 
 [package.optional-dependencies]
@@ -1108,6 +1109,7 @@ requires-dist = [
     { name = "langgraph-prebuilt", marker = "extra == 'langgraph'" },
     { name = "python-dotenv" },
     { name = "traceloop-sdk" },
+    { name = "truststore" },
 ]
 provides-extras = ["langgraph", "crewai", "all"]
 
@@ -5116,6 +5118,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/48/d3/abeb78a20eef02b2f8c05753cdf99f0331e3a64f0415ea4623a8018788eb/traceloop_sdk-0.49.6.tar.gz", hash = "sha256:73f028dec517eac7d927dbac8cbfea144e321d862f1b3cfe05d4e079bfb14c2c", size = 36599, upload-time = "2025-12-01T18:40:14.219Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f5/a3/0b4bff6447c82fec245f890d978e0174371a3685b1d298caa55165b5f205/traceloop_sdk-0.49.6-py3-none-any.whl", hash = "sha256:01dba7ebac91d578314d1678cea46246d420d3993c5d8f6759c16e6830fcae31", size = 51423, upload-time = "2025-12-01T18:40:12.686Z" },
+]
+
+[[package]]
+name = "truststore"
+version = "0.10.4"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/53/a3/1585216310e344e8102c22482f6060c7a6ea0322b63e026372e6dcefcfd6/truststore-0.10.4.tar.gz", hash = "sha256:9d91bd436463ad5e4ee4aba766628dd6cd7010cf3e2461756b3303710eebc301", size = 26169, upload-time = "2025-08-12T18:49:02.73Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/19/97/56608b2249fe206a67cd573bc93cd9896e1efb9e98bce9c163bcdc704b88/truststore-0.10.4-py3-none-any.whl", hash = "sha256:adaeaecf1cbb5f4de3b1959b42d41f6fab57b2b1666adb59e89cb0b53361d981", size = 18660, upload-time = "2025-08-12T18:49:01.46Z" },
 ]
 
 [[package]]
